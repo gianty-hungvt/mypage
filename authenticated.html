@@ -25,11 +25,21 @@
     <div class="message">You are logged in</div>
 
     <script>
+        // Function to get URL parameter
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name) || '';
+        }
+
         // Function to open deep link
         function openDeepLink() {
-            // Example deep link for an Android game (replace with your actual deep link)
-            const deepLink = "xyz.kiooverse.games.kioomonorigins.dev://";
-            const fallbackUrl = "https://play.google.com/store/apps/details?id=xyz.kiooverse.games.kioomonorigins.dev";
+            // Get the 'code' parameter from the URL
+            const code = getUrlParameter('code');
+            // Base deep link for the Android game
+            const baseDeepLink = "mygame://start";
+            // Append code parameter to deep link if it exists
+            const deepLink = code ? `${baseDeepLink}?code=${encodeURIComponent(code)}` : baseDeepLink;
+            const fallbackUrl = "https://play.google.com/store/apps/details?id=com.example.mygame";
 
             // Attempt to open the deep link
             window.location.href = deepLink;
